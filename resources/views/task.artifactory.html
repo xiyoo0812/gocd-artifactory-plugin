@@ -1,0 +1,10 @@
+<div>
+<label>Source Artifact Path:<span class="asterisk">*</span></label>
+<input type="text" ng-model="ArtifactPath" ng-required="true">
+<span class="form_error" ng-show="GOINPUTNAME[ArtifactPath].$error.server">{{ GOINPUTNAME[ArtifactPath].$error.server }}</span>
+</div>
+<div>
+<label>Target Repository:<span class="asterisk">*</span></label>
+<input type="text" ng-model="TargetRepository" ng-required="true">
+<span class="form_error" ng-show="GOINPUTNAME[TargetRepository].$error.server">{{ GOINPUTNAME[TargetRepository].$error.server }}</span>
+</div>
