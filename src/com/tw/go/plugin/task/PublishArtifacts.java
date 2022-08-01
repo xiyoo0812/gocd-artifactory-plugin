@@ -81,8 +81,7 @@ private Map<String, String> checksums = emptyMap();
 	//Handling the configuration of fields that are displayed in the UI side.
 	private GoPluginApiResponse handleConfiguration() {
         Map<String, Object> response = new HashMap<String, Object>();
-        response.put("TargetArtifacts", createField("TargetArtifacts", "", true, false, "1"));
-        response.put("ArtifactPath", createField("ArtifactPath", "", true, false, "2"));
+        response.put("ArtifactPath", createField("ArtifactPath", "", true, false, "1"));
         response.put("TargetRepository", createField("TargetRepository", "", true, false, "0"));
         return renderJSON(SUCCESS_RESPONSE_CODE, response);
     }
@@ -147,7 +146,14 @@ private Map<String, String> checksums = emptyMap();
 		Map<String, String> environmentVariables = (Map<String, String>) context.get("environmentVariables");
 		String Ev_Url = environmentVariables.get("ARTIFACTORY_URL");
 		String Ev_User = environmentVariables.get("ARTIFACTORY_USER");
-		String Ev_Pass = environmentVariables.get("ARTIFACTORY_PASSWORD");		
+		String Ev_Pass = environmentVariables.get("ARTIFACTORY_PASSWORD");
+		String Ev_Piple = environmentVariables.get("GO_PIPELINE_NAME");
+		String Ev_Branch = environmentVariables.get("GO_MATERIAL_BRANCH");
+		String Ev_Version = environmentVariables.get("GO_REVISION");
+
+		JobConsoleLogger.getConsoleLogger().printLine("PipleName" + ":" + Ev_Piple);
+		JobConsoleLogger.getConsoleLogger().printLine("BranchName" + ":" + Ev_Branch);
+		JobConsoleLogger.getConsoleLogger().printLine("VersionName" + ":" + Ev_Version);
 
 		//Fetching Artifact path from Environment Variables
 		Map<String, String> ArtifactLocation = (Map<String, String>) configKeyValuePairs.get("ArtifactPath");
@@ -160,19 +166,12 @@ private Map<String, String> checksums = emptyMap();
 		
 		String Local_path = PLUGN_WORK_Dir + workingDirectory + "/" + ArtifactPATH;
 
-		String PipleName = System.getenv("GO_PIPELINE_NAME");
-		String BranchName = System.getenv("GO_MATERIAL_BRANCH");
-		String VersionName = System.getenv("GO_REVISION");
-		JobConsoleLogger.getConsoleLogger().printLine("PipleName" + ":" + PipleName);
-		JobConsoleLogger.getConsoleLogger().printLine("BranchName" + ":" + BranchName);
-		JobConsoleLogger.getConsoleLogger().printLine("VersionName" + ":" + VersionName);
-
 		//设置日期格式
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 		String time = sdf.format(new Date());
 		JobConsoleLogger.getConsoleLogger().printLine("time" + ":" + time);
 
-		String Target_path = PipleName + "_" + BranchName + "_" + VersionName + "/" + time + "/" + ArtifactPATH;
+		String Target_path = Ev_Piple + "_" + Ev_Branch + "/" + Ev_Version + "_" + time + "_" + ArtifactPATH;
 		
 		//Invoking the upload method to upload the artifacts 
 		upload(Ev_Url, Ev_User, Ev_Pass, Local_path, Repository, Target_path);
