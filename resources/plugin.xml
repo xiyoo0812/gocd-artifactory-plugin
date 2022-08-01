@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<go-plugin id="Artifactory-Plugin" version="1">
+<go-plugin id="gocd-artifactory-plugin" version="1">
     <about>
         <name>gocd-artifactory-plugin</name>
         <version>0.1</version>
         <target-go-version>22.1.0</target-go-version>
-        <description>
-            jfrog gocd-artifactory-plugin by xiyoo0812
-        </description> 
+        <description>jfrog gocd-artifactory-plugin by xiyoo0812</description> 
         <vendor>
             <name>xiyoo0812</name>
             <url>http://github.com/xiyoo0812/gocd-artifactory-plugin</url>
