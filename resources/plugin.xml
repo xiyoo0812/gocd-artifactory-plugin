@@ -2,7 +2,7 @@
 <go-plugin id="gocd-artifactory-plugin" version="1">
     <about>
         <name>gocd-artifactory-plugin</name>
-        <version>0.1</version>
+        <version>1.0</version>
         <target-go-version>22.1.0</target-go-version>
         <description>jfrog gocd-artifactory-plugin by xiyoo0812</description> 
         <vendor>
