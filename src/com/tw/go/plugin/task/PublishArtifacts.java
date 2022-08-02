@@ -149,6 +149,8 @@ private Map<String, String> checksums = emptyMap();
 		String Ev_Pass = environmentVariables.get("ARTIFACTORY_PASSWORD");
 		String Ev_Piple = environmentVariables.get("GO_PIPELINE_NAME");
 		String Ev_Branch = environmentVariables.get("GO_MATERIAL_BRANCH");
+		String Ev_Pcount = environmentVariables.get("GO_PIPELINE_COUNTER");
+		String Ev_Scount = environmentVariables.get("GO_STAGE_COUNTER");
 		String Ev_Version = environmentVariables.get("GO_REVISION");
 
 		JobConsoleLogger.getConsoleLogger().printLine("PipleName" + ":" + Ev_Piple);
@@ -165,13 +167,12 @@ private Map<String, String> checksums = emptyMap();
 		String Repository = RepositoryName.get("value");
 		
 		String Local_path = PLUGN_WORK_Dir + workingDirectory + "/" + ArtifactPATH;
+		
+		int firstDot = ArtifactPATH.indexOf(".");
+		StringBuilder artifactSB = new StringBuilder(ArtifactPATH);
+		artifactSB.insert(firstDot, "-" + Ev_Pcount + "-" +  Ev_Scount + "-" + Ev_Version.substring(0, 8));
 
-		//设置日期格式
-		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
-		String time = sdf.format(new Date());
-		JobConsoleLogger.getConsoleLogger().printLine("time" + ":" + time);
-
-		String Target_path = Ev_Piple + "_" + Ev_Branch + "/" + Ev_Version + "/" + time + "_" + ArtifactPATH;
+		String Target_path = Ev_Piple + "/" + Ev_Branch + "/" + artifactSB.toString();
 		
 		//Invoking the upload method to upload the artifacts 
 		upload(Ev_Url, Ev_User, Ev_Pass, Local_path, Repository, Target_path);
