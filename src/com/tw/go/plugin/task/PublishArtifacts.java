@@ -171,7 +171,7 @@ private Map<String, String> checksums = emptyMap();
 		String time = sdf.format(new Date());
 		JobConsoleLogger.getConsoleLogger().printLine("time" + ":" + time);
 
-		String Target_path = Ev_Piple + "_" + Ev_Branch + "/" + Ev_Version + "_" + time + "_" + ArtifactPATH;
+		String Target_path = Ev_Piple + "_" + Ev_Branch + "/" + Ev_Version + "/" + time + "_" + ArtifactPATH;
 		
 		//Invoking the upload method to upload the artifacts 
 		upload(Ev_Url, Ev_User, Ev_Pass, Local_path, Repository, Target_path);
