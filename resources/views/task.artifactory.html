@@ -1,5 +1,10 @@
 <div>
-<label>Source Artifact Path:<span class="asterisk">*</span></label>
+<label>GoCD Agent Work Path:<span class="asterisk">*</span></label>
+<input type="text" ng-model="GoAgentWorkDir" ng-required="true">
+<span class="form_error" ng-show="GOINPUTNAME[GoAgentWorkDir].$error.server">{{ GOINPUTNAME[GoAgentWorkDir].$error.server }}</span>
+</div>
+<div>
+<label>Source Artifact FileName:<span class="asterisk">*</span></label>
 <input type="text" ng-model="ArtifactPath" ng-required="true">
 <span class="form_error" ng-show="GOINPUTNAME[ArtifactPath].$error.server">{{ GOINPUTNAME[ArtifactPath].$error.server }}</span>
 </div>

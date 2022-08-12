@@ -41,7 +41,6 @@ private Map<String, String> checksums = emptyMap();
     public final static String REQUEST_TASK_VIEW = "view";
     public final static String REQUEST_TASK_VIEW_2 = "go.plugin-settings.get-view";
     public final static String REQUEST_EXECUTION = "execute";
-    public final static String PLUGN_WORK_Dir = "/godata/";
 
     //Handling GoPluginApiRequest request submitted from Go to Plugin implementation
 	public GoPluginApiResponse handle(GoPluginApiRequest goPluginApiRequest)
@@ -82,6 +81,7 @@ private Map<String, String> checksums = emptyMap();
 	private GoPluginApiResponse handleConfiguration() {
         Map<String, Object> response = new HashMap<String, Object>();
         response.put("ArtifactPath", createField("ArtifactPath", "", true, false, "1"));
+        response.put("GoAgentWorkDir", createField("GoAgentWorkDir", "", true, false, "2"));
         response.put("TargetRepository", createField("TargetRepository", "", true, false, "0"));
         return renderJSON(SUCCESS_RESPONSE_CODE, response);
     }
@@ -165,8 +165,12 @@ private Map<String, String> checksums = emptyMap();
 		//Fetching Repository name from Environment Variables
 		Map<String, String> RepositoryName = (Map<String, String>) configKeyValuePairs.get("TargetRepository");
 		String Repository = RepositoryName.get("value");
-		
-		String Local_path = PLUGN_WORK_Dir + workingDirectory + "/" + ArtifactPATH;
+
+		//Fetching GoAgent work dir from Environment Variables
+		Map<String, String> GoAgentPath = (Map<String, String>) configKeyValuePairs.get("GoAgentWorkDir");
+		String GoAgentWorkDir = GoAgentPath.get("value");
+
+		String Local_path = GoAgentWorkDir + "/" + workingDirectory + "/" + ArtifactPATH;
 		
 		int firstDot = ArtifactPATH.indexOf(".");
 		StringBuilder artifactSB = new StringBuilder(ArtifactPATH);
