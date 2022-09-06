@@ -147,6 +147,7 @@ private Map<String, String> checksums = emptyMap();
 		String Ev_Url = environmentVariables.get("ARTIFACTORY_URL");
 		String Ev_User = environmentVariables.get("ARTIFACTORY_USER");
 		String Ev_Pass = environmentVariables.get("ARTIFACTORY_PASSWORD");
+		String Ev_Ver = environmentVariables.get("ARTIFACTORY_VERSION");
 		String Ev_Piple = environmentVariables.get("GO_PIPELINE_NAME");
 		String Ev_Pcount = environmentVariables.get("GO_PIPELINE_COUNTER");
 		String Ev_Scount = environmentVariables.get("GO_STAGE_COUNTER");
@@ -172,7 +173,7 @@ private Map<String, String> checksums = emptyMap();
 		
 		int firstDot = ArtifactPATH.indexOf(".");
 		StringBuilder artifactSB = new StringBuilder(ArtifactPATH);
-		artifactSB.insert(firstDot, "-1.0." + Ev_Pcount + "-" +  Ev_Scount);
+		artifactSB.insert(firstDot, "-" + Ev_Ver + "." + Ev_Pcount + "." +  Ev_Scount);
 
 		String Target_path = Ev_Piple + "/" + artifactSB.toString();
 		
