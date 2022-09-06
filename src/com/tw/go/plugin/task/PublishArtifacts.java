@@ -148,14 +148,12 @@ private Map<String, String> checksums = emptyMap();
 		String Ev_User = environmentVariables.get("ARTIFACTORY_USER");
 		String Ev_Pass = environmentVariables.get("ARTIFACTORY_PASSWORD");
 		String Ev_Piple = environmentVariables.get("GO_PIPELINE_NAME");
-		String Ev_Branch = environmentVariables.get("GO_MATERIAL_BRANCH");
 		String Ev_Pcount = environmentVariables.get("GO_PIPELINE_COUNTER");
 		String Ev_Scount = environmentVariables.get("GO_STAGE_COUNTER");
-		String Ev_Version = environmentVariables.get("GO_REVISION");
 
 		JobConsoleLogger.getConsoleLogger().printLine("PipleName" + ":" + Ev_Piple);
-		JobConsoleLogger.getConsoleLogger().printLine("BranchName" + ":" + Ev_Branch);
-		JobConsoleLogger.getConsoleLogger().printLine("VersionName" + ":" + Ev_Version);
+		JobConsoleLogger.getConsoleLogger().printLine("PipleCount" + ":" + Ev_Pcount);
+		JobConsoleLogger.getConsoleLogger().printLine("StageCount" + ":" + Ev_Scount);
 
 		//Fetching Artifact path from Environment Variables
 		Map<String, String> ArtifactLocation = (Map<String, String>) configKeyValuePairs.get("ArtifactPath");
@@ -174,9 +172,9 @@ private Map<String, String> checksums = emptyMap();
 		
 		int firstDot = ArtifactPATH.indexOf(".");
 		StringBuilder artifactSB = new StringBuilder(ArtifactPATH);
-		artifactSB.insert(firstDot, "-" + Ev_Pcount + "-" +  Ev_Scount + "-" + Ev_Version.substring(0, 8));
+		artifactSB.insert(firstDot, "-1.0." + Ev_Pcount + "-" +  Ev_Scount);
 
-		String Target_path = Ev_Piple + "/" + Ev_Branch + "/" + artifactSB.toString();
+		String Target_path = Ev_Piple + "/" + artifactSB.toString();
 		
 		//Invoking the upload method to upload the artifacts 
 		upload(Ev_Url, Ev_User, Ev_Pass, Local_path, Repository, Target_path);
